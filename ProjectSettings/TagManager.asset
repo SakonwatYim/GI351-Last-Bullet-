@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - monster
+  - WallY_under
+  - WallY_on
+  - WallX_left
+  - WallX_right
   layers:
   - Default
   - TransparentFX

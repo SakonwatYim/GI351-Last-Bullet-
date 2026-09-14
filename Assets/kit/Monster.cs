@@ -8,7 +8,7 @@ public class Monster : MonoBehaviour
     public int Detection = 100;
     public float speed_monster = 10;
     public int max_Distance = 10;
-    public int min_Distance = 2;
+    public int min_Distance =5;
     public Transform firepoint;
     public GameObject player;
     public GameObject bullet;
@@ -54,14 +54,23 @@ public class Monster : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("WallY"))
-        {
-            position_random = new Vector3(transform.position.x + Random.Range(min_Distance, max_Distance), transform.position.y, transform.position.z - Random.Range(min_Distance, max_Distance));
-        }
-        if (collision.gameObject.CompareTag("WallX"))
-        {
-            position_random = new Vector3(transform.position.x - Random.Range(min_Distance, max_Distance), transform.position.y, transform.position.z + Random.Range(min_Distance, max_Distance));
-        }
+            if (collision.gameObject.CompareTag("WallY_under"))
+            {
+                position_random = new Vector3(transform.position.x + Random.Range(min_Distance, max_Distance), transform.position.y, transform.position.z + Random.Range(min_Distance, max_Distance));
+            }
+            if (collision.gameObject.CompareTag("WallY_on"))
+            {
+                position_random = new Vector3(transform.position.x + Random.Range(min_Distance, max_Distance), transform.position.y, transform.position.z - Random.Range(min_Distance, max_Distance));
+            } 
+            if (collision.gameObject.CompareTag("WallX_left"))
+            {
+                position_random = new Vector3(transform.position.x + Random.Range(min_Distance, max_Distance), transform.position.y, transform.position.z + Random.Range(min_Distance, max_Distance));
+            }
+            if (collision.gameObject.CompareTag("WallX_right"))
+            {
+                position_random = new Vector3(transform.position.x - Random.Range(min_Distance, max_Distance), transform.position.y, transform.position.z + Random.Range(min_Distance, max_Distance));
+            }
+         
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -90,7 +99,12 @@ public class Monster : MonoBehaviour
                 if (hit.collider.CompareTag("Player"))
                 {
                     player_Distance();
+                    if (hit.collider.CompareTag("WallY_under") || hit.collider.CompareTag("WallY_on") || hit.collider.CompareTag("WallX_left") || hit.collider.CompareTag("WallX_right"))
+                    {
+                        random_Position();
+                    }
                 }
+               
             }
         }
       

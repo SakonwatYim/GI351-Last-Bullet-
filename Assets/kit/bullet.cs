@@ -1,5 +1,6 @@
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 
 public class bullet : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class bullet : MonoBehaviour
                 monster.hasShoot = true;
                 Destroy(gameObject);
             }
-            if(shoot.collider.CompareTag("WallY")|| shoot.collider.CompareTag("WallX"))
+            if (shoot.collider.CompareTag("WallY_under") || shoot.collider.CompareTag("WallY_on") || shoot.collider.CompareTag("WallX_left") || shoot.collider.CompareTag("WallX_right"))
             {
                 Destroy(gameObject);
                 monster.hasShoot = true;
@@ -31,9 +32,6 @@ public class bullet : MonoBehaviour
                 monster.hasShoot = true;
             }
         }
-     
-
-       
     }
 }
     
