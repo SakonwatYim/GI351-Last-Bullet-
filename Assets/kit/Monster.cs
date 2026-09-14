@@ -54,10 +54,13 @@ public class Monster : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("wall"))
+        if (collision.gameObject.CompareTag("WallY"))
         {
-            Debug.Log("ชน WALL แล้ว!");
             position_random = new Vector3(transform.position.x + Random.Range(min_Distance, max_Distance), transform.position.y, transform.position.z - Random.Range(min_Distance, max_Distance));
+        }
+        if (collision.gameObject.CompareTag("WallX"))
+        {
+            position_random = new Vector3(transform.position.x - Random.Range(min_Distance, max_Distance), transform.position.y, transform.position.z + Random.Range(min_Distance, max_Distance));
         }
     }
 
