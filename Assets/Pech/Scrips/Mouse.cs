@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 public class Mouse : MonoBehaviour
@@ -38,6 +39,6 @@ public class Mouse : MonoBehaviour
     void MovePlayer()
     {
         currentLookingPos += smoothedMousePos;
-        transform.localRotation = Quaternion.AngleAxis(currentLookingPos, transform.up);
+        transform.localRotation = Quaternion.Euler(0,currentLookingPos, 0);
     }
 }
