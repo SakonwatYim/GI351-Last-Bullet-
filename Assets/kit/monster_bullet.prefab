@@ -123,3 +123,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monster: {fileID: 0}
   speed: 100
+  damage: 30
+  speed_bullet: 50

@@ -5,6 +5,8 @@ using UnityEngine;
 public class player : MonoBehaviour
 {
     public int health;
+    public int damage;
+    public Monster monster;
     public Transform firepoint;
     public GameObject bullet;
     public GameObject bullet1;
@@ -16,6 +18,7 @@ public class player : MonoBehaviour
     public int max_Bullet = 10;
     public Vector3 direction;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    
     void Start()
     {
         currrent_Bullet = max_Bullet;
@@ -32,6 +35,7 @@ public class player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(health);
         direction = Camera.main.transform.forward;
 
         if (Input.GetMouseButtonDown(0))

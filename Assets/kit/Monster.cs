@@ -5,6 +5,8 @@ using UnityEngine.InputSystem.HID;
 
 public class Monster : MonoBehaviour
 {
+    public int health;
+    public int damage;
     public int Detection = 100;
     public float speed_monster = 10;
     public int max_Distance = 10;
@@ -28,6 +30,7 @@ public class Monster : MonoBehaviour
                 {
                     GameObject shoot = Instantiate(bullet,firepoint.position, Quaternion.identity);
                 bullet bulletScript = shoot.GetComponent<bullet>();
+
                 bulletScript.monster = this;
                 hasShoot = false;
 
@@ -83,7 +86,10 @@ public class Monster : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {   //เก็บสิ่งที่ชนไว้ในhit
+
+    {
+        Debug.Log(health);
+        //เก็บสิ่งที่ชนไว้ในhit
         distance_player = Vector3.Distance(player.transform.position, transform.position);
         distance_direction = player.transform.position - transform.position;
         Debug.DrawRay(firepoint.position, distance_direction * Detection, Color.red);
