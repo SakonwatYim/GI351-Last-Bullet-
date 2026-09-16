@@ -9,13 +9,7 @@ public class bullet : MonoBehaviour
     public float speed = 120f;
     public int damage;
     public float speed_bullet = 50f;
-    IEnumerator Delay()
-    {
-
-        yield return new WaitForSeconds(1f);
-        monster.hasShoot = true;
-        Destroy(gameObject);
-    }
+  
     private void Start()
     {
         monster = FindFirstObjectByType<Monster>();
@@ -33,13 +27,14 @@ public class bullet : MonoBehaviour
                 player Player = shoot.collider.GetComponent<player>();
                 damage = monster.damage;
                 Player.health -= damage;
-                if (Player.health <= 0) { Destroy(monster.player); }
-                StartCoroutine(Delay());
+                if (Player.health <= 0) { Destroy(shoot.collider.gameObject); }
+                monster.hasShoot = true;
+                Destroy(gameObject); 
             }
             else if (shoot.collider.CompareTag("WallY_under") || shoot.collider.CompareTag("WallY_on") || shoot.collider.CompareTag("WallX_left") || shoot.collider.CompareTag("WallX_right") || shoot.collider.CompareTag("floor"))
             {
-                StartCoroutine(Delay());
-
+                monster.hasShoot = true;
+                Destroy(gameObject);
                 /* }
                  else if(shoot.collider.CompareTag("monster"))
                  {

@@ -1,6 +1,8 @@
 using System.Runtime.CompilerServices;
+using System.Threading;
 using Unity.VisualScripting;
 using UnityEngine;
+using System.Collections;
 using UnityEngine.InputSystem.HID;
 
 public class Monster : MonoBehaviour
@@ -20,6 +22,14 @@ public class Monster : MonoBehaviour
    public bool hasShoot = true;
 
     Rigidbody rb;
+    IEnumerator Delay()
+    {
+        hasShoot = false;
+        yield return new WaitForSeconds(1f);
+        GameObject shoot = Instantiate(bullet, firepoint.position, Quaternion.identity);
+        bullet bulletScript = shoot.GetComponent<bullet>();
+        bulletScript.monster = this;
+    }
     public void player_Distance()
     {
         //ต้องใช้Vector(Normalize)Normalize=ให้ระยะทางที่ห่างกันคือ1เหลือไว้แค่ทิศทาง      (ทำการหาส่วนต่าง)
@@ -28,13 +38,7 @@ public class Monster : MonoBehaviour
             {
                 if (hasShoot == true)
                 {
-                    GameObject shoot = Instantiate(bullet,firepoint.position, Quaternion.identity);
-                bullet bulletScript = shoot.GetComponent<bullet>();
-
-                bulletScript.monster = this;
-                hasShoot = false;
-
-
+                StartCoroutine(Delay());
                 }
             float z = Mathf.MoveTowards(transform.position.z, player.transform.position.z, 20 * Time.deltaTime);
             transform.position = new Vector3(transform.position.x,transform.position.y,z);
