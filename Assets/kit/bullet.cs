@@ -9,15 +9,15 @@ public class bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //raycastดีกว่าOncollitionเพราะ raycastตรวจจับเป็นเส้นตรง(เป็นเส้นดูว่ามันกำลังจะชนไหม) แล้วใช้colliderตรวจcompareTagว่ามันโดนไหมุ 
-        //แต่ถุ้ามันเป็นOncollitionมันจะตรวจจับระยะใหล้และกระสุนเดินทางไวทำให้ข้ามคอไรเดอร์ไปได้
+        //raycast๏ฟฝีก๏ฟฝ๏ฟฝ๏ฟฝOncollition๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ raycast๏ฟฝ๏ฟฝวจ๏ฟฝับ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ้นตรง(๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ้นด๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝัน๏ฟฝ๏ฟฝ๏ฟฝัง๏ฟฝะช๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ) ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝcollider๏ฟฝ๏ฟฝวจcompareTag๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝันโดน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ 
+        //๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝัน๏ฟฝ๏ฟฝOncollition๏ฟฝัน๏ฟฝะต๏ฟฝวจ๏ฟฝับ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝะก๏ฟฝ๏ฟฝ๏ฟฝุน๏ฟฝิน๏ฟฝาง๏ฟฝวท๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ
         transform.position += monster.distance_direction.normalized * (100 * Time.deltaTime);
         if (Physics.Raycast(transform.position, monster.distance_direction, out RaycastHit shoot, speed *Time.deltaTime))
         {
             if (shoot.collider.CompareTag("Player"))
             {
                 Destroy(monster.player);
-                //รอทำเรื่องplayer
+                //๏ฟฝอท๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝองplayer
                 monster.hasShoot = true;
                 Destroy(gameObject);
             }
