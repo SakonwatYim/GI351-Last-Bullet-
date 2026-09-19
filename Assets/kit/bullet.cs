@@ -1,37 +1,49 @@
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using System.Collections;
 using UnityEngine.InputSystem.HID;
 
 public class bullet : MonoBehaviour
 {
     public Monster monster;
-    public float speed = 30; 
+    public float speed = 120f;
+    public int damage;
+    public float speed_bullet = 50f;
+  
+    private void Start()
+    {
+        monster = FindFirstObjectByType<Monster>();
+        damage = monster.damage;
+    }
     // Update is called once per frame
     void Update()
     {
-        //raycastï¿½Õ¡ï¿½ï¿½ï¿½Oncollitionï¿½ï¿½ï¿½ï¿½ raycastï¿½ï¿½Ç¨ï¿½Ñºï¿½ï¿½ï¿½ï¿½é¹µÃ§(ï¿½ï¿½ï¿½ï¿½é¹´ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½Ñ§ï¿½Ðªï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½colliderï¿½ï¿½Ç¨compareTagï¿½ï¿½ï¿½ï¿½Ñ¹â´¹ï¿½ï¿½ï¿½ï¿½ 
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½ï¿½Oncollitionï¿½Ñ¹ï¿½Ðµï¿½Ç¨ï¿½Ñºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½Ø¹ï¿½Ô¹ï¿½Ò§ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-        transform.position += monster.distance_direction.normalized * (100 * Time.deltaTime);
-        if (Physics.Raycast(transform.position, monster.distance_direction, out RaycastHit shoot, speed *Time.deltaTime))
+        //raycast´Õ¡ÇèÒOncollitionà¾ÃÒÐ raycastµÃÇ¨¨Ñºà»ç¹àÊé¹µÃ§(à»ç¹àÊé¹´ÙÇèÒÁÑ¹¡ÓÅÑ§¨Ðª¹äËÁ) áÅéÇãªécolliderµÃÇ¨compareTagÇèÒÁÑ¹â´¹äËÁØ 
+        //áµè¶ØéÒÁÑ¹à»ç¹OncollitionÁÑ¹¨ÐµÃÇ¨¨ÑºÃÐÂÐãËÅéáÅÐ¡ÃÐÊØ¹à´Ô¹·Ò§äÇ·ÓãËé¢éÒÁ¤ÍäÃà´ÍÃìä»ä´é
+        if (Physics.Raycast(transform.position, monster.distance_direction.normalized, out RaycastHit shoot, speed * Time.deltaTime))
         {
             if (shoot.collider.CompareTag("Player"))
             {
-                Destroy(monster.player);
-                //ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½Í§player
+                player Player = shoot.collider.GetComponent<player>();
+                damage = monster.damage;
+                Player.health -= damage;
+                if (Player.health <= 0) { Destroy(shoot.collider.gameObject); }
                 monster.hasShoot = true;
-                Destroy(gameObject);
+                Destroy(gameObject); 
             }
-            if (shoot.collider.CompareTag("WallY_under") || shoot.collider.CompareTag("WallY_on") || shoot.collider.CompareTag("WallX_left") || shoot.collider.CompareTag("WallX_right"))
+            else if (shoot.collider.CompareTag("WallY_under") || shoot.collider.CompareTag("WallY_on") || shoot.collider.CompareTag("WallX_left") || shoot.collider.CompareTag("WallX_right") || shoot.collider.CompareTag("floor"))
             {
-                Destroy(gameObject);
                 monster.hasShoot = true;
-            }
-            if (shoot.collider.CompareTag("monster"))
-            {
                 Destroy(gameObject);
-                monster.hasShoot = true;
+                /* }
+                 else if(shoot.collider.CompareTag("monster"))
+                 {
+                     StartCoroutine(Delay());
+
+                 }*/
             }
         }
+        transform.position += monster.distance_direction.normalized * (speed_bullet * Time.deltaTime);
     }
 }
     
