@@ -40,8 +40,9 @@ public class Monster : MonoBehaviour
                 {
                 StartCoroutine(Delay());
                 }
-            float z = Mathf.MoveTowards(transform.position.z, player.transform.position.z, 20 * Time.deltaTime);
-            transform.position = new Vector3(transform.position.x,transform.position.y,z);
+            float z = Mathf.MoveTowards(transform.position.z, player.transform.position.z, speed_monster * Time.deltaTime);
+            float x = Mathf.MoveTowards(transform.position.x, player.transform.position.x, speed_monster * Time.deltaTime);
+            transform.position = new Vector3(x, transform.position.y, z);
             }
 
         

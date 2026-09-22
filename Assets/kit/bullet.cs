@@ -12,7 +12,10 @@ public class bullet : MonoBehaviour
   
     private void Start()
     {
-        monster = FindFirstObjectByType<Monster>();
+        if (monster == null)
+        {
+            monster = FindFirstObjectByType<Monster>();
+        }
         damage = monster.damage;
     }
     // Update is called once per frame

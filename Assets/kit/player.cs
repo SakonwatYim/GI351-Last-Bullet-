@@ -11,7 +11,7 @@ public class player : MonoBehaviour
     public Monster monster;
     public Transform firepoint;
     public GameObject bullet;
-    public GameObject bullet1;
+    public GameObject lazer;
     public int currrent_Bullet;
     public int max_Bullet ;
     public Vector3 direction;
@@ -23,7 +23,7 @@ public class player : MonoBehaviour
         yield return new WaitForSeconds(2f);
         hasShoot = true;
     }
-
+   
     void Start()
     {
         currrent_Bullet = max_Bullet;
@@ -63,8 +63,8 @@ public class player : MonoBehaviour
                 if (currrent_Bullet == 1)
                 
                         {
-                            shoot(bullet1);
-                            currrent_Bullet -= 1;
+                    shoot(lazer);
+                        currrent_Bullet -= 1;
                         }
 
                 
