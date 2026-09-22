@@ -49,7 +49,7 @@ public class player : MonoBehaviour
             {
                 if (currrent_Bullet > 20)
                 {
-                    damage = 10;
+                    damage -= 10;
                     StartCoroutine(Delay());
                     currrent_Bullet -= 1;
                 }
