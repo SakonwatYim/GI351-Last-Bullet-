@@ -1,10 +1,14 @@
 using System.Runtime.CompilerServices;
+using System.Threading;
 using Unity.VisualScripting;
 using UnityEngine;
+using System.Collections;
 using UnityEngine.InputSystem.HID;
 
 public class Monster : MonoBehaviour
 {
+    public int health;
+    public int damage;
     public int Detection = 100;
     public float speed_monster = 10;
     public int max_Distance = 10;
@@ -18,6 +22,14 @@ public class Monster : MonoBehaviour
    public bool hasShoot = true;
 
     Rigidbody rb;
+    IEnumerator Delay()
+    {
+        hasShoot = false;
+        yield return new WaitForSeconds(1f);
+        GameObject shoot = Instantiate(bullet, firepoint.position, Quaternion.identity);
+        bullet bulletScript = shoot.GetComponent<bullet>();
+        bulletScript.monster = this;
+    }
     public void player_Distance()
     {
         //ต้องใช้Vector(Normalize)Normalize=ให้ระยะทางที่ห่างกันคือ1เหลือไว้แค่ทิศทาง      (ทำการหาส่วนต่าง)
@@ -26,15 +38,11 @@ public class Monster : MonoBehaviour
             {
                 if (hasShoot == true)
                 {
-                    GameObject shoot = Instantiate(bullet,firepoint.position, Quaternion.identity);
-                bullet bulletScript = shoot.GetComponent<bullet>();
-                bulletScript.monster = this;
-                hasShoot = false;
-
-
+                StartCoroutine(Delay());
                 }
-            float z = Mathf.MoveTowards(transform.position.z, player.transform.position.z, 20 * Time.deltaTime);
-            transform.position = new Vector3(transform.position.x,transform.position.y,z);
+            float z = Mathf.MoveTowards(transform.position.z, player.transform.position.z, speed_monster * Time.deltaTime);
+            float x = Mathf.MoveTowards(transform.position.x, player.transform.position.x, speed_monster * Time.deltaTime);
+            transform.position = new Vector3(x, transform.position.y, z);
             }
 
         
@@ -83,7 +91,10 @@ public class Monster : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {   //เก็บสิ่งที่ชนไว้ในhit
+
+    {
+        Debug.Log(health);
+        //เก็บสิ่งที่ชนไว้ในhit
         distance_player = Vector3.Distance(player.transform.position, transform.position);
         distance_direction = player.transform.position - transform.position;
         Debug.DrawRay(firepoint.position, distance_direction * Detection, Color.red);

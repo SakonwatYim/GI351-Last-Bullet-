@@ -9,6 +9,7 @@ TagManager:
   - WallY_on
   - WallX_left
   - WallX_right
+  - floor
   layers:
   - Default
   - TransparentFX
