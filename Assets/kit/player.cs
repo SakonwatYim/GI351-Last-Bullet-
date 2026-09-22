@@ -39,6 +39,7 @@ public class player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         Debug.Log(health);
         Debug.Log(currrent_Bullet);
         direction = Camera.main.transform.forward;
