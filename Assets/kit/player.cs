@@ -56,7 +56,7 @@ public class player : MonoBehaviour
         Debug.Log(currrent_Bullet);
         direction = Camera.main.transform.forward;
 
-        if ((countSkill >= 0) && (countSkill <= 2))
+        if ((countSkill >= 0) && (countSkill <= 1))
         {
             if(Input.GetKeyDown(KeyCode.F))
             {
