@@ -5,7 +5,9 @@ using System.Collections;
 
 public class player : MonoBehaviour
 {
-    bool hasShoot =true;
+   public bool hasShoot =true;
+   public bool useSkill =true;
+    public int countSkill;
     public int health;
     public int damage;
     public Monster monster;
@@ -23,7 +25,17 @@ public class player : MonoBehaviour
         yield return new WaitForSeconds(1f);
         hasShoot = true;
     }
-   
+    IEnumerator skillTime()
+    {
+        useSkill = true;
+        int currenHealth = health;
+        countSkill += 1;
+        health = 999999999;
+        yield return new WaitForSeconds(5f);
+        useSkill = false;
+        health = currenHealth;
+    }
+
     void Start()
     {
         currrent_Bullet = max_Bullet;
@@ -44,6 +56,15 @@ public class player : MonoBehaviour
         Debug.Log(currrent_Bullet);
         direction = Camera.main.transform.forward;
 
+        if ((countSkill >= 0) && (countSkill <= 2))
+        {
+            if(Input.GetKeyDown(KeyCode.F))
+            {
+                StartCoroutine(skillTime());
+            }    
+              
+
+        }
         if (hasShoot == true)
         {
             if (Input.GetMouseButtonDown(0))

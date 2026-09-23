@@ -27,9 +27,16 @@ public class bullet : MonoBehaviour
         {
             if (shoot.collider.CompareTag("Player"))
             {
+               
                 player Player = shoot.collider.GetComponent<player>();
                 damage = monster.damage;
+                if (Player.useSkill == true && ((Player.countSkill >= 0) && (Player.countSkill <= 2)))
+                {
+                    damage = 0;
+                    Player.currrent_Bullet++;
+                }
                 Player.health -= damage;
+              
                 if (Player.health <= 0) { Destroy(shoot.collider.gameObject); }
                 monster.hasShoot = true;
                 Destroy(gameObject); 
