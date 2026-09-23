@@ -40,9 +40,9 @@ public class Monster : MonoBehaviour
                 {
                 StartCoroutine(Delay());
                 }
-            float z = Mathf.MoveTowards(transform.position.z, player.transform.position.z, speed_monster * Time.deltaTime);
-            float x = Mathf.MoveTowards(transform.position.x, player.transform.position.x, speed_monster * Time.deltaTime);
-            transform.position = new Vector3(x, transform.position.y, z);
+            float z = Mathf.MoveTowards(transform.position.z, player.transform.position.z+5, 8 * Time.deltaTime);
+            float x = Mathf.MoveTowards(transform.position.x, player.transform.position.x+5, 8* Time.deltaTime);
+            transform.position = new Vector3(x , transform.position.y, z);
             }
 
         
@@ -50,11 +50,13 @@ public class Monster : MonoBehaviour
     public void random_Position()
     {
         position_random = new Vector3(transform.position.x + Random.Range(min_Distance, max_Distance), transform.position.y, transform.position.z + Random.Range(min_Distance, max_Distance));
-  
+        move();
     }
     public void move()
-    {       
-        //ต่ำแหน่งปัจจุบัน,ต่ำแหน่งที่ต้องการ,ความเร็วที่ไป                                                  คูณทุกครั้งที่เคลื่อนที่
+    {
+        //ต่ำแหน่งปัจจุบัน,ต่ำแหน่งที่ต้องการ,ความเร็วที่ไป
+        //คูณทุกครั้งที่เคลื่อนที่
+       
         transform.position = Vector3.MoveTowards(transform.position, position_random, speed_monster * Time.deltaTime);
         //หมุนตัว
 
@@ -62,7 +64,7 @@ public class Monster : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-            if (collision.gameObject.CompareTag("WallY_under"))
+        if (collision.gameObject.CompareTag("WallY_under"))
             {
                 position_random = new Vector3(transform.position.x + Random.Range(min_Distance, max_Distance), transform.position.y, transform.position.z + Random.Range(min_Distance, max_Distance));
             }
@@ -84,8 +86,8 @@ public class Monster : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        random_Position();
         rb = GetComponent<Rigidbody>();
+        random_Position();
 
     }
 
@@ -106,28 +108,31 @@ public class Monster : MonoBehaviour
             //ตรวจว่าชชนอะไรบ้าง                                   ไว้เช็คว่าชนกับอะไร(ประกาศตัวแปรhitแล้วเอาไปเก็บไว้Physics.Raycast)
             if (Physics.Raycast(firepoint.position, distance_direction, out RaycastHit hit, 100))
             {
-               // Debug.Log("raycastชนเพลย์เยอร์");
+                // Debug.Log("raycastชนเพลย์เยอร์");
                 if (hit.collider.CompareTag("Player"))
                 {
                     player_Distance();
-                    if (hit.collider.CompareTag("WallY_under") || hit.collider.CompareTag("WallY_on") || hit.collider.CompareTag("WallX_left") || hit.collider.CompareTag("WallX_right"))
-                    {
-                        random_Position();
-                    }
+                    return;
                 }
-               
+              /*  if (hit.collider.CompareTag("WallY_under") || hit.collider.CompareTag("WallY_on") || hit.collider.CompareTag("WallX_left") || hit.collider.CompareTag("WallX_right"))
+                {
+                    random_Position();
+                }*/
             }
+           
+
         }
-      
-          
-            if (Vector3.Distance(transform.position, position_random) <=0.01)
-             {
-            rb.AddTorque(new Vector3(0, Random.Range(1, 20), 0));
+        if (Vector3.Distance(transform.position, position_random) <= 0.01)
+        {
+            transform.Rotate(new Vector3(0, Random.Range(1, 20), 0));
             firepoint.rotation = transform.rotation;
             random_Position();
-             }
+        }
+
 
         move();
-            
+
     }
+
 }
+

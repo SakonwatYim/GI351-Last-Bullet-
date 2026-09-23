@@ -20,7 +20,7 @@ public class player : MonoBehaviour
     {
         shoot(bullet);
         hasShoot = false;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         hasShoot = true;
     }
    
