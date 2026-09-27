@@ -21,6 +21,15 @@ public class PlayerMovement : MonoBehaviour
 
      void Update()
     {
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+        {
+            playerSpeed = 30f;
+        }
+        if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift))
+        {
+            playerSpeed = 15f;
+        }
+
         GetInput();
         MovePlayer();
         CheckHeadBob();

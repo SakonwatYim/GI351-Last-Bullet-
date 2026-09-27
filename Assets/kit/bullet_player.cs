@@ -13,7 +13,6 @@ public class bullet_player : MonoBehaviour
         damage = Player.damage;
     }
 
-    // Update is called once per frame
     void Update()
     {
 
